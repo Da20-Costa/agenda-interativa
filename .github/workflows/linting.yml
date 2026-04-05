@@ -1,0 +1,34 @@
+name: Lint
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/hydrogen"
+
+      - run: npm ci
+
+      - name: Check Formatting (Prettier)
+        run: npm run lint:prettier:check
+  eslint:
+    name: Eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/hydrogen"
+
+      - run: npm ci
+
+      - name: Check Linting (ESLint)
+        run: npm run lint:eslint:check
