@@ -1,4 +1,4 @@
-import db from '../infra/database'
+import db from 'infra/database.js'
 
 test('Banco de dados deve estar conectado e executando queries', () => {
   const result = db.prepare('SELECT 2 + 2 AS soma').get()
