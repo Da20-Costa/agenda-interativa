@@ -17,5 +17,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Ligar o servidor em segundo plano
+        run: npm run dev &
+
+      - name: Esperar o servidor ficar pronto
+        run: npx wait-on http://localhost:3000
+
       - name: Run Tests
         run: npm test
