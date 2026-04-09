@@ -1,0 +1,192 @@
+/* pages/Home.module.css */
+.container {
+  padding: 20px;
+  font-family: sans-serif;
+  background-color: #f4f4f9;
+  min-height: 100vh;
+}
+
+.titulo {
+  text-align: center;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 15px;
+  align-items: start;
+}
+
+.colunaDia {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalhoDia {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eaeaea;
+  padding-bottom: 5px;
+}
+
+.tituloDia {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #0070f3;
+}
+
+.botaoAdicionar {
+  background: none;
+  border: none;
+  color: #28a745;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.botaoAdicionar:hover {
+  color: #1e7e34;
+}
+
+.listaCards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.textoCard {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.botaoRemover {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: color 0.2s;
+}
+
+.botaoRemover:hover {
+  color: #a71d2a;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: aparecerFundo 0.3s ease-out forwards;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: subirModal 0.3s ease-out forwards;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.grupoBotoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.botaoSalvar {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botaoCancelar {
+  background-color: transparent;
+  color: #555;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@keyframes aparecerFundo {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes subirModal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Para telas de Tablet (menores que 1024px) */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Para telas de Celular (menores que 768px) */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .colunaDia {
+    margin-bottom: 10px;
+  }
+}
