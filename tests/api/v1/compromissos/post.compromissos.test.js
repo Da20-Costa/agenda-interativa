@@ -9,7 +9,7 @@ test('POST para /api/v1/compromissos deve criar um compromisso', async () => {
     },
     body: JSON.stringify({
       titulo: 'Consulta médica',
-      data: '2026-10-15',
+      data: 'Quinta',
       descricao: 'Levar exames de sangue',
     }),
   })

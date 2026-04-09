@@ -20,6 +20,15 @@ export default function handler(request, response) {
     })
   }
 
+  if (request.method === 'DELETE') {
+    const { id } = request.query
+
+    const stmt = db.prepare('DELETE FROM compromissos WHERE id = ?')
+    stmt.run(id)
+
+    return response.status(204).end()
+  }
+
   return response.status(405).json({
     erro: 'Método não permitido',
   })
