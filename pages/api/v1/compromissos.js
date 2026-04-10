@@ -1,4 +1,5 @@
 import compromisso from 'src/models/compromisso.js'
+import { diasSemana } from 'src/utils/constants.js'
 
 export default function handler(request, response) {
   if (request.method === 'GET') {
@@ -9,6 +10,19 @@ export default function handler(request, response) {
 
   if (request.method === 'POST') {
     const { titulo, data, descricao } = request.body
+
+    if (!titulo || titulo.length > 100) {
+      return response.status(400).json({
+        erro: 'O título é obrigatório e deve ter no máximo 100 caracteres.',
+      })
+    }
+
+    const diasValidos = diasSemana
+    if (!data || !diasValidos.includes(data)) {
+      return response.status(400).json({
+        erro: 'Data inválida. Use um dia da semana válido (ex: Segunda, Terça...).',
+      })
+    }
 
     compromisso.criarCompromisso({ titulo, data, descricao })
 
