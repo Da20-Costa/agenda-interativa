@@ -22,3 +22,10 @@ test('DELETE para /api/v1/compromissos deve remover o compromisso pelo ID', asyn
 
   expect(compromissoDeletado).toBeUndefined()
 })
+
+afterAll(() => {
+  const stmt = db.prepare(
+    "DELETE FROM compromissos WHERE titulo = 'Teste Delete'",
+  )
+  stmt.run()
+})

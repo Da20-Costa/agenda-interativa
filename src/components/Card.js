@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import styles from 'src/components/Card.module.css'
 
-export default function Card({ compromisso, aoRemover, aoEditar }) {
+export default function Card({
+  compromisso,
+  aoRemover,
+  aoEditar,
+  aoAlternarStatus,
+}) {
   const [expandido, setExpandido] = useState(false)
 
   function lidarComDelete(e) {
@@ -14,10 +19,35 @@ export default function Card({ compromisso, aoRemover, aoEditar }) {
     aoEditar(compromisso)
   }
 
+  function lidarComStatus(e) {
+    e.stopPropagation()
+    aoAlternarStatus(compromisso)
+  }
+
+  const estaConcluido =
+    compromisso.concluido === 1 || compromisso.concluido === true
+
   return (
-    <div className={styles.card} onClick={() => setExpandido(!expandido)}>
+    <div
+      className={`${styles.card} ${estaConcluido ? styles.cardConcluido : ''}`}
+      onClick={() => setExpandido(!expandido)}
+    >
       <div className={styles.cabecalhoCard}>
-        <span className={styles.textoCard}>{compromisso.titulo}</span>
+        <div className={styles.areaTitulo}>
+          <input
+            type="checkbox"
+            className={styles.checkbox}
+            checked={estaConcluido}
+            onChange={lidarComStatus}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+
+        <span
+          className={`${styles.textoCard} ${estaConcluido ? styles.textoConcluido : ''}`}
+        >
+          {compromisso.titulo}
+        </span>
 
         <div className={styles.acoes}>
           <button

@@ -17,12 +17,12 @@ function removerCompromisso(id) {
   stmt.run(id)
 }
 
-function editarCompromisso(id, titulo, decricao, data) {
+function editarCompromisso(id, titulo, decricao, data, concluido) {
   const stmt = db.prepare(
-    `UPDATE compromissos SET titulo = ?, descricao = ?, data = ? WHERE id = ?`,
+    `UPDATE compromissos SET titulo = ?, descricao = ?, data = ?, concluido = ? WHERE id = ?`,
   )
 
-  stmt.run(titulo, decricao, data, id)
+  stmt.run(titulo, decricao, data, concluido, id)
 }
 
 const compromisso = {

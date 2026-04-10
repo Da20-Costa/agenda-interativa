@@ -43,6 +43,15 @@ export default function Home() {
     }
   }
 
+  async function alternarStatusCompromisso(compromissoClicado) {
+    const novoStatus = compromissoClicado.concluido ? 0 : 1
+
+    await editarCompromisso(compromissoClicado.id, {
+      ...compromissoClicado,
+      concluido: novoStatus,
+    })
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.titulo}>Cronograma Semanal</h1>
@@ -56,6 +65,7 @@ export default function Home() {
             aoAdicionar={abrirModalParaCriar}
             aoRemover={removerCompromisso}
             aoEditar={abrirModalParaEditar}
+            aoAlternarStatus={alternarStatusCompromisso}
           />
         ))}
       </div>
