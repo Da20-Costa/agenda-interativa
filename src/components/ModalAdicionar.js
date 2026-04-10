@@ -5,7 +5,9 @@ export default function ModalAdicionar({ dia, aoFechar, aoSalvar }) {
   const [titulo, setTitulo] = useState('')
   const [descricao, setDescricao] = useState('')
 
-  function enviarDados() {
+  function enviarDados(e) {
+    if (e) e.preventDefault()
+
     if (!titulo) return
 
     aoSalvar({
@@ -15,9 +17,16 @@ export default function ModalAdicionar({ dia, aoFechar, aoSalvar }) {
     })
   }
 
+  function lidarComEnterDescricao(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      enviarDados()
+    }
+  }
+
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.modal}>
+      <form className={styles.modal} onSubmit={enviarDados}>
         <h3>Adicionar em {dia}</h3>
 
         <input
@@ -34,17 +43,26 @@ export default function ModalAdicionar({ dia, aoFechar, aoSalvar }) {
           placeholder="Descrição (Opcional. Ex: Fazer exercícios em Python)"
           value={descricao}
           onChange={(e) => setDescricao(e.target.value)}
+          onKeyDown={lidarComEnterDescricao}
         />
 
         <div className={styles.grupoBotoes}>
-          <button className={styles.botaoCancelar} onClick={aoFechar}>
+          <button
+            type="button"
+            className={styles.botaoCancelar}
+            onClick={aoFechar}
+          >
             Cancelar
           </button>
-          <button className={styles.botaoSalvar} onClick={enviarDados}>
+          <button
+            type="submit"
+            className={styles.botaoSalvar}
+            onClick={enviarDados}
+          >
             Salvar
           </button>
         </div>
-      </div>
+      </form>
     </div>
   )
 }
