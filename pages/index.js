@@ -4,6 +4,7 @@ import ColunaDia from 'src/components/ColunaDia.js'
 import ModalAdicionar from 'src/components/ModalAdicionar'
 import { diasSemana } from 'src/utils/constants.js'
 import { useCompromissos } from '/src/hooks/useCompromissos.js'
+import Footer from '../src/components/Footer'
 
 export default function Home() {
   const {
@@ -78,6 +79,8 @@ export default function Home() {
           aoSalvar={lidarComSalvar}
         />
       )}
+
+      <Footer />
     </div>
   )
 }
