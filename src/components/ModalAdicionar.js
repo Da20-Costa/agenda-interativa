@@ -24,6 +24,7 @@ export default function ModalAdicionar({
       titulo: titulo,
       descricao: descricao,
       data: dia,
+      concluido: compromissoExistente ? compromissoExistente.concluido : 0,
     })
   }
 

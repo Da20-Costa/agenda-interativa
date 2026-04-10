@@ -26,7 +26,7 @@ export default function handler(request, response) {
   }
 
   if (request.method === 'PUT') {
-    const { id, titulo, descricao, data } = request.body
+    const { id, titulo, descricao, data, concluido } = request.body
 
     if (!id || !titulo || !data) {
       return response
@@ -35,7 +35,7 @@ export default function handler(request, response) {
     }
 
     try {
-      compromisso.editarCompromisso(id, titulo, descricao, data)
+      compromisso.editarCompromisso(id, titulo, descricao, data, concluido)
 
       return response
         .status(200)

@@ -12,7 +12,8 @@ db.prepare(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT NOT NULL,
     data TEXT NOT NULL,
-    descricao TEXT
+    descricao TEXT,
+    concluido BOOLEAN DEFAULT 0
   )
 `,
 ).run()
