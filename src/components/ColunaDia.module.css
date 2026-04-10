@@ -1,0 +1,40 @@
+.colunaDia {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalhoDia {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eaeaea;
+  padding-bottom: 5px;
+}
+
+.tituloDia {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #0070f3;
+}
+
+.botaoAdicionar {
+  background: none;
+  border: none;
+  color: #28a745;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.botaoAdicionar:hover {
+  color: #1e7e34;
+}
+
+.listaCards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

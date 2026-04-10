@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
+    "setup": "node infra/setup.js",
     "test": "jest",
+    "test:watch": "jest --watchAll --runInBand --verbose",
     "build": "next build",
     "start": "next start",
     "commit": "cz",
