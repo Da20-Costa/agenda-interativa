@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import styles from './Home.module.css'
+import ColunaDia from 'src/components/ColunaDia.js'
+import ModalAdicionar from 'src/components/ModalAdicionar'
 
 export default function Home() {
   const diasSemana = [
@@ -13,18 +15,16 @@ export default function Home() {
   ]
 
   const [compromissos, setCompromissos] = useState([])
-
   const [modalAberto, setModalAberto] = useState(false)
   const [diaSelecionado, setDiaSelecionado] = useState('')
-  const [novoTitulo, setNovoTitulo] = useState('')
 
   useEffect(() => {
     async function carregarCompromissos() {
       try {
         const response = await fetch('/api/v1/compromissos')
-        const data = await response.json()
+        const dados = await response.json()
 
-        setCompromissos(data)
+        setCompromissos(dados)
       } catch (error) {
         console.error('Erro ao buscar dados:', error)
       }
@@ -35,19 +35,10 @@ export default function Home() {
 
   async function abrirModal(dia) {
     setDiaSelecionado(dia)
-    setNovoTitulo('')
     setModalAberto(true)
   }
 
-  async function salvarCompromisso() {
-    if (!novoTitulo) return
-
-    const novoDado = {
-      titulo: novoTitulo,
-      data: diaSelecionado,
-      descricao: '',
-    }
-
+  async function salvarCompromisso(novoDado) {
     const response = await fetch('/api/v1/compromissos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -79,68 +70,22 @@ export default function Home() {
 
       <div className={styles.grid}>
         {diasSemana.map((dia) => (
-          <div key={dia} className={styles.colunaDia}>
-            <div className={styles.cabecalhoDia}>
-              <h2 className={styles.tituloDia}>{dia}</h2>
-              <button
-                className={styles.botaoAdicionar}
-                title="Adicionar"
-                onClick={() => abrirModal(dia)}
-              >
-                +
-              </button>
-            </div>
-
-            <div className={styles.listaCards}>
-              {compromissos
-                .filter((comp) => comp.data === dia)
-                .map((comp) => (
-                  <div key={comp.id} className={styles.card}>
-                    <span className={styles.textoCard}>{comp.titulo}</span>
-                    <button
-                      className={styles.botaoRemover}
-                      title="Remover"
-                      onClick={() => removerCompromisso(comp.id)}
-                    >
-                      x
-                    </button>
-                  </div>
-                ))}
-            </div>
-          </div>
+          <ColunaDia
+            key={dia}
+            dia={dia}
+            compromissosDoDia={compromissos.filter((comp) => comp.data === dia)}
+            aoAdicionar={abrirModal}
+            aoRemover={removerCompromisso}
+          />
         ))}
       </div>
 
       {modalAberto && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modal}>
-            <h3>Adicionar em {diaSelecionado}</h3>
-
-            <input
-              type="text"
-              className={styles.input}
-              placeholder="Ex: Estudar Programação"
-              value={novoTitulo}
-              onChange={(e) => setNovoTitulo(e.target.value)}
-              autoFocus
-            ></input>
-
-            <div className={styles.grupoBotoes}>
-              <button
-                className={styles.botaoCancelar}
-                onClick={() => setModalAberto(false)}
-              >
-                Cancelar
-              </button>
-              <button
-                className={styles.botaoSalvar}
-                onClick={salvarCompromisso}
-              >
-                Salvar
-              </button>
-            </div>
-          </div>
-        </div>
+        <ModalAdicionar
+          dia={diaSelecionado}
+          aoFechar={() => setModalAberto(false)}
+          aoSalvar={salvarCompromisso}
+        />
       )}
     </div>
   )
