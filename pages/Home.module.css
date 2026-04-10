@@ -4,6 +4,9 @@
   font-family: sans-serif;
   background-color: #f4f4f9;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .titulo {
@@ -17,6 +20,7 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 15px;
   align-items: start;
+  flex: 1;
 }
 
 /* Para telas de Tablet (menores que 1024px) */
