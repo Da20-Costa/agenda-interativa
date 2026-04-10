@@ -6,19 +6,38 @@ import { diasSemana } from 'src/utils/constants.js'
 import { useCompromissos } from '/src/hooks/useCompromissos.js'
 
 export default function Home() {
-  const { compromissos, salvarCompromisso, removerCompromisso } =
-    useCompromissos()
+  const {
+    compromissos,
+    salvarCompromisso,
+    removerCompromisso,
+    editarCompromisso,
+  } = useCompromissos()
 
   const [modalAberto, setModalAberto] = useState(false)
   const [diaSelecionado, setDiaSelecionado] = useState('')
+  const [compromissoEditando, setCompromissoEditando] = useState(null)
 
-  async function abrirModal(dia) {
+  function abrirModalParaCriar(dia) {
     setDiaSelecionado(dia)
+    setCompromissoEditando(null)
     setModalAberto(true)
   }
 
-  async function lidarComSalvar(novoDado) {
-    const sucesso = await salvarCompromisso(novoDado)
+  function abrirModalParaEditar(compromisso) {
+    setDiaSelecionado(compromisso.data)
+    setCompromissoEditando(compromisso)
+    setModalAberto(true)
+  }
+
+  async function lidarComSalvar(dadosDoModal) {
+    let sucesso = false
+
+    if (dadosDoModal.id) {
+      sucesso = await editarCompromisso(dadosDoModal.id, dadosDoModal)
+    } else {
+      sucesso = await salvarCompromisso(dadosDoModal)
+    }
+
     if (sucesso) {
       setModalAberto(false)
     }
@@ -34,8 +53,9 @@ export default function Home() {
             key={dia}
             dia={dia}
             compromissosDoDia={compromissos.filter((comp) => comp.data === dia)}
-            aoAdicionar={abrirModal}
+            aoAdicionar={abrirModalParaCriar}
             aoRemover={removerCompromisso}
+            aoEditar={abrirModalParaEditar}
           />
         ))}
       </div>
@@ -43,6 +63,7 @@ export default function Home() {
       {modalAberto && (
         <ModalAdicionar
           dia={diaSelecionado}
+          compromissoExistente={compromissoEditando}
           aoFechar={() => setModalAberto(false)}
           aoSalvar={lidarComSalvar}
         />

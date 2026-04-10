@@ -52,3 +52,21 @@
   padding-top: 10px;
   border-top: 1px solid #575757;
 }
+
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.botaoEditar {
+  background: none;
+  border: none;
+  color: #0070f3;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.botaoEditar:hover {
+  background-color: #e6f7ff;
+}

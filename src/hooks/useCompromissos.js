@@ -45,10 +45,27 @@ export function useCompromissos() {
     }
   }
 
+  async function editarCompromisso(id, dadosAtualizados) {
+    const response = await fetch('/api/v1/compromissos', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id, ...dadosAtualizados }),
+    })
+
+    if (response.status === 200) {
+      const responseGet = await fetch('/api/v1/compromissos')
+      const listaAtualizada = await responseGet.json()
+      setCompromissos(listaAtualizada)
+      return true
+    }
+    return false
+  }
+
   const useCompromissos = {
     compromissos,
     salvarCompromisso,
     removerCompromisso,
+    editarCompromisso,
   }
 
   return useCompromissos
