@@ -1,8 +1,8 @@
-import db from 'infra/database.js'
+import compromisso from 'src/models/compromisso.js'
 
 export default function handler(request, response) {
   if (request.method === 'GET') {
-    const compromissos = db.prepare('SELECT * FROM compromissos').all()
+    const compromissos = compromisso.listarTodosCompromissos()
 
     return response.status(200).json(compromissos)
   }
@@ -10,10 +10,7 @@ export default function handler(request, response) {
   if (request.method === 'POST') {
     const { titulo, data, descricao } = request.body
 
-    const stmt = db.prepare(
-      'INSERT INTO compromissos (titulo, data, descricao) VALUES (?, ?, ?)',
-    )
-    stmt.run(titulo, data, descricao)
+    compromisso.criarCompromisso({ titulo, data, descricao })
 
     return response.status(201).json({
       mensagem: 'Compromisso salvo com sucesso! ',
@@ -23,8 +20,7 @@ export default function handler(request, response) {
   if (request.method === 'DELETE') {
     const { id } = request.query
 
-    const stmt = db.prepare('DELETE FROM compromissos WHERE id = ?')
-    stmt.run(id)
+    compromisso.removerCompromisso(id)
 
     return response.status(204).end()
   }
