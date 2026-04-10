@@ -4,6 +4,9 @@
 ![Linting Status](https://github.com/Da20-Costa/agenda-interativa/actions/workflows/linting.yml/badge.svg)
 ![License](https://img.shields.io/github/license/Da20-Costa/agenda-interativa)
 
+<br>
+<img width="1599" height="899" alt="Captura de tela 2026-04-10 151247" src="https://github.com/user-attachments/assets/76ee3370-9191-4f47-8523-bb7334558880" />
+
 ## 📖 Sobre o Projeto
 
 * **Nome do Projeto:** Agenda Interativa
@@ -12,7 +15,7 @@
 * **Link do Repositório Público:** [https://github.com/Da20-Costa/agenda-interativa](https://github.com/Da20-Costa/agenda-interativa)
 
 ### 🚨 O Problema Real
-A desorganização de tarefas semanais e o esquecimento de compromissos importantes levam à perda de produtividade, acumulação de prazos e aumento do stress na rotina agitada de estudos e trabalho. 
+A desorganização de tarefas semanais e o esquecimento de compromissos importantes levam à perda de produtividade, acumulação de prazos e aumento do stress na rotina agitada de estudos e trabalho. Eu mesmo sempre tive problema para organizar meu dia e, sinceramente, escrever de forma organizada as tarefas sempre ajudou.
 
 ### 💡 Proposta da Solução
 Uma aplicação web leve, de resposta imediata e interface limpa que permite registrar, organizar e dar baixa em compromissos diários com persistência local de dados. A ferramenta foi projetada para focar na facilidade de uso, evitando a complexidade desnecessária de softwares empresariais pesados.
@@ -50,7 +53,7 @@ Siga os passos abaixo para testar o projeto localmente na sua máquina.
 ### 1. Instalação
 Clone o repositório e aceda à pasta:
 ```bash
-git clone [https://github.com/Da20-Costa/agenda-interativa.git](https://github.com/Da20-Costa/agenda-interativa.git)
+git clone https://github.com/Da20-Costa/agenda-interativa.git
 cd agenda-interativa
 ```
 
