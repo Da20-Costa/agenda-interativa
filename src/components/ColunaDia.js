@@ -6,6 +6,7 @@ export default function ColunaDia({
   compromissosDoDia,
   aoAdicionar,
   aoRemover,
+  aoEditar,
 }) {
   return (
     <div className={styles.colunaDia}>
@@ -22,7 +23,12 @@ export default function ColunaDia({
 
       <div className={styles.listaCards}>
         {compromissosDoDia.map((comp) => (
-          <Card key={comp.id} compromisso={comp} aoRemover={aoRemover} />
+          <Card
+            key={comp.id}
+            compromisso={comp}
+            aoRemover={aoRemover}
+            aoEditar={aoEditar}
+          />
         ))}
       </div>
     </div>

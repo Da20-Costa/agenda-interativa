@@ -1,9 +1,18 @@
 import { useState } from 'react'
 import styles from 'src/components/ModalAdicionar.module.css'
 
-export default function ModalAdicionar({ dia, aoFechar, aoSalvar }) {
-  const [titulo, setTitulo] = useState('')
-  const [descricao, setDescricao] = useState('')
+export default function ModalAdicionar({
+  dia,
+  compromissoExistente,
+  aoFechar,
+  aoSalvar,
+}) {
+  const [titulo, setTitulo] = useState(
+    compromissoExistente ? compromissoExistente.titulo : '',
+  )
+  const [descricao, setDescricao] = useState(
+    compromissoExistente?.descricao || '',
+  )
 
   function enviarDados(e) {
     if (e) e.preventDefault()
@@ -11,6 +20,7 @@ export default function ModalAdicionar({ dia, aoFechar, aoSalvar }) {
     if (!titulo) return
 
     aoSalvar({
+      id: compromissoExistente?.id,
       titulo: titulo,
       descricao: descricao,
       data: dia,
@@ -24,10 +34,14 @@ export default function ModalAdicionar({ dia, aoFechar, aoSalvar }) {
     }
   }
 
+  const textoCabecalho = compromissoExistente ? 'Editar em' : 'Adicionar em'
+
   return (
     <div className={styles.modalOverlay}>
       <form className={styles.modal} onSubmit={enviarDados}>
-        <h3>Adicionar em {dia}</h3>
+        <h3>
+          {textoCabecalho} {dia}
+        </h3>
 
         <input
           type="text"
