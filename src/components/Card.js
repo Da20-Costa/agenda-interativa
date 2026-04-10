@@ -41,13 +41,12 @@ export default function Card({
             onChange={lidarComStatus}
             onClick={(e) => e.stopPropagation()}
           />
+          <span
+            className={`${styles.textoCard} ${estaConcluido ? styles.textoConcluido : ''}`}
+          >
+            {compromisso.titulo}
+          </span>
         </div>
-
-        <span
-          className={`${styles.textoCard} ${estaConcluido ? styles.textoConcluido : ''}`}
-        >
-          {compromisso.titulo}
-        </span>
 
         <div className={styles.acoes}>
           <button
