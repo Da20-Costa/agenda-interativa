@@ -7,6 +7,7 @@ export default function ColunaDia({
   aoAdicionar,
   aoRemover,
   aoEditar,
+  aoAlternarStatus,
 }) {
   return (
     <div className={styles.colunaDia}>
@@ -28,6 +29,7 @@ export default function ColunaDia({
             compromisso={comp}
             aoRemover={aoRemover}
             aoEditar={aoEditar}
+            aoAlternarStatus={aoAlternarStatus}
           />
         ))}
       </div>
