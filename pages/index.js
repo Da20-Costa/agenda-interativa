@@ -1,66 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styles from './Home.module.css'
 import ColunaDia from 'src/components/ColunaDia.js'
 import ModalAdicionar from 'src/components/ModalAdicionar'
+import { diasSemana } from 'src/utils/constants.js'
+import { useCompromissos } from '/src/hooks/useCompromissos.js'
 
 export default function Home() {
-  const diasSemana = [
-    'Segunda',
-    'Terça',
-    'Quarta',
-    'Quinta',
-    'Sexta',
-    'Sábado',
-    'Domingo',
-  ]
+  const { compromissos, salvarCompromisso, removerCompromisso } =
+    useCompromissos()
 
-  const [compromissos, setCompromissos] = useState([])
   const [modalAberto, setModalAberto] = useState(false)
   const [diaSelecionado, setDiaSelecionado] = useState('')
-
-  useEffect(() => {
-    async function carregarCompromissos() {
-      try {
-        const response = await fetch('/api/v1/compromissos')
-        const dados = await response.json()
-
-        setCompromissos(dados)
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error)
-      }
-    }
-
-    carregarCompromissos()
-  }, [])
 
   async function abrirModal(dia) {
     setDiaSelecionado(dia)
     setModalAberto(true)
   }
 
-  async function salvarCompromisso(novoDado) {
-    const response = await fetch('/api/v1/compromissos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(novoDado),
-    })
-
-    if (response.status === 201) {
-      const responseGet = await fetch('/api/v1/compromissos')
-      const dadosAtualizados = await responseGet.json()
-      setCompromissos(dadosAtualizados)
-
+  async function lidarComSalvar(novoDado) {
+    const sucesso = await salvarCompromisso(novoDado)
+    if (sucesso) {
       setModalAberto(false)
-    }
-  }
-
-  async function removerCompromisso(id) {
-    const response = await fetch(`/api/v1/compromissos?id=${id}`, {
-      method: 'DELETE',
-    })
-
-    if (response.status === 204) {
-      setCompromissos((prev) => prev.filter((comp) => comp.id !== id))
     }
   }
 
@@ -84,7 +44,7 @@ export default function Home() {
         <ModalAdicionar
           dia={diaSelecionado}
           aoFechar={() => setModalAberto(false)}
-          aoSalvar={salvarCompromisso}
+          aoSalvar={lidarComSalvar}
         />
       )}
     </div>
