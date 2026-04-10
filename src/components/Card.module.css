@@ -6,6 +6,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  cursor: pointer;
+  flex-direction: column;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -32,4 +34,21 @@
 
 .botaoRemover:hover {
   color: #a71d2a;
+}
+
+.cabecalhoCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.descricao {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #575757;
 }
