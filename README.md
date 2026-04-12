@@ -91,7 +91,7 @@ Verifica se o código está seguindo as regras de formatação e padronização 
 ```bash
 1. npm run lint:prettier:check -------- (Faz o check pelo prettier)
 2. npm run lint:prettier:fix -------- (O prettier faz a reescrita do que está errado automaticamente)
-3. lint:eslint:check -------- (Faz o check pelo eslint)
+3. npm run lint:eslint:check -------- (Faz o check pelo eslint)
 ```
 
 ## 🤝 Contribuição e Licença
