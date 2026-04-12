@@ -89,8 +89,9 @@ npm test
 Verifica se o código está seguindo as regras de formatação e padronização estabelecidas.
 
 ```bash
-npm run lint:prettier:check
-npm run lint:prettier:fix
+1. npm run lint:prettier:check -------- (Faz o check pelo prettier)
+2. npm run lint:prettier:fix -------- (O prettier faz a reescrita do que está errado automaticamente)
+3. lint:eslint:check -------- (Faz o check pelo eslint)
 ```
 
 ## 🤝 Contribuição e Licença
