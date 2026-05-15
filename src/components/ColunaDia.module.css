@@ -38,3 +38,36 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.containerDiaLivre {
+  text-align: center;
+  padding: 5px 10px;
+}
+
+.textoDiaLivre {
+  font-size: 14px;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.botaoSugerir {
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}
+
+.botaoSugerir:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.textoSugestao {
+  margin-top: 12px;
+  margin-bottom: 0;
+  font-size: 13px;
+  color: #0070f3;
+  font-weight: 500;
+}
