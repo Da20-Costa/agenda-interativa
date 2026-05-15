@@ -1,12 +1,17 @@
+/**
+ * @jest-environment node
+ */
+
 import fetch from 'node-fetch'
-import db from 'infra/database.js'
+import sql from 'infra/database.js'
 
 test('DELETE para /api/v1/compromissos deve remover o compromisso pelo ID', async () => {
-  const insertStmt = db.prepare(
-    "INSERT INTO compromissos (titulo, data, descricao) VALUES ('Teste Delete', 'Sexta', 'Será apagado')",
-  )
-  const info = insertStmt.run()
-  const idParaDeletar = info.lastInsertRowid
+  const [novoCompromisso] = await sql`
+    INSERT INTO compromissos (titulo, data, descricao)
+    VALUES ('Teste Delete', 'Sexta', 'Será apagado')
+    RETURNING id
+  `
+  const idParaDeletar = novoCompromisso.id
 
   const response = await fetch(
     `http://localhost:3000/api/v1/compromissos?id=${idParaDeletar}`,
@@ -17,15 +22,17 @@ test('DELETE para /api/v1/compromissos deve remover o compromisso pelo ID', asyn
 
   expect(response.status).toBe(204)
 
-  const selectStmt = db.prepare('SELECT * FROM compromissos WHERE id = ?')
-  const compromissoDeletado = selectStmt.get(idParaDeletar)
+  const resultados = await sql`
+    SELECT * FROM compromissos WHERE id = ${idParaDeletar}
+  `
 
-  expect(compromissoDeletado).toBeUndefined()
+  expect(resultados.length).toBe(0)
 })
 
-afterAll(() => {
-  const stmt = db.prepare(
-    "DELETE FROM compromissos WHERE titulo = 'Teste Delete'",
-  )
-  stmt.run()
+afterAll(async () => {
+  try {
+    await sql`DELETE FROM compromissos WHERE titulo = 'Teste Delete'`
+  } finally {
+    await sql.end()
+  }
 })
