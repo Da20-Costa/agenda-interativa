@@ -46,7 +46,7 @@ export default function Home() {
   }
 
   async function alternarStatusCompromisso(compromissoClicado) {
-    const novoStatus = compromissoClicado.concluido ? 0 : 1
+    const novoStatus = !compromissoClicado.concluido
 
     await editarCompromisso(compromissoClicado.id, {
       ...compromissoClicado,

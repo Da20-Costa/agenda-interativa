@@ -1,5 +1,9 @@
+/**
+ * @jest-environment node
+ */
+
 import fetch from 'node-fetch'
-import db from 'infra/database.js'
+import sql from 'infra/database.js'
 
 test('POST para /api/v1/compromissos deve criar um compromisso', async () => {
   const response = await fetch('http://localhost:3000/api/v1/compromissos', {
@@ -57,9 +61,10 @@ test('POST para /api/v1/compromissos deve retornar erro 400 se a data for invál
   )
 })
 
-afterAll(() => {
-  const stmt = db.prepare(
-    "DELETE FROM compromissos WHERE titulo = 'Consulta médica'",
-  )
-  stmt.run()
+afterAll(async () => {
+  try {
+    await sql`DELETE FROM compromissos WHERE titulo = 'Consulta médica'`
+  } finally {
+    await sql.end()
+  }
 })

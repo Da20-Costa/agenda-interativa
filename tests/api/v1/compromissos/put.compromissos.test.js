@@ -1,5 +1,9 @@
+/**
+ * @jest-environment node
+ */
+
 import fetch from 'node-fetch'
-import db from 'infra/database.js'
+import sql from 'infra/database.js'
 
 test('PUT /api/v1/compromissos deve atualizar um compromisso com sucesso', async () => {
   await fetch('http://localhost:3000/api/v1/compromissos', {
@@ -23,6 +27,7 @@ test('PUT /api/v1/compromissos deve atualizar um compromisso com sucesso', async
     titulo: 'Título Atualizado',
     data: 'Terça',
     descricao: 'Descrição Nova',
+    concluido: false,
   }
 
   const responsePut = await fetch('http://localhost:3000/api/v1/compromissos', {
@@ -61,9 +66,10 @@ test('PUT /api/v1/compromissos deve retornar 400 se faltarem dados obrigatórios
   expect(responsePut.status).toBe(400)
 })
 
-afterAll(() => {
-  const stmt = db.prepare(
-    "DELETE FROM compromissos WHERE titulo = 'Título Atualizado'",
-  )
-  stmt.run()
+afterAll(async () => {
+  try {
+    await sql`DELETE FROM compromissos WHERE titulo = 'Título Atualizado' OR titulo = 'Título Antigo'`
+  } finally {
+    await sql.end()
+  }
 })

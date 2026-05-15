@@ -1,28 +1,28 @@
-import db from 'infra/database.js'
+import sql from 'infra/database.js'
 
-function listarTodosCompromissos() {
-  return db.prepare(`SELECT * FROM compromissos`).all()
+async function listarTodosCompromissos() {
+  return await sql`SELECT * FROM compromissos ORDER BY data ASC`
 }
 
-function criarCompromisso({ titulo, data, descricao }) {
-  const stmt = db.prepare(
-    `INSERT INTO compromissos (titulo, data, descricao) VALUES (?, ?, ?)`,
-  )
-  const info = stmt.run(titulo, data, descricao)
-  return info.lastInsertRowid
+async function criarCompromisso({ titulo, data, descricao }) {
+  const [novoCompromisso] = await sql`
+    INSERT INTO compromissos (titulo, data, descricao)
+    VALUES (${titulo}, ${data}, ${descricao})
+    RETURNING id
+  `
+  return novoCompromisso.id
 }
 
-function removerCompromisso(id) {
-  const stmt = db.prepare(`DELETE FROM compromissos WHERE id = ?`)
-  stmt.run(id)
+async function removerCompromisso(id) {
+  await sql`DELETE FROM compromissos WHERE id = ${id}`
 }
 
-function editarCompromisso(id, titulo, decricao, data, concluido) {
-  const stmt = db.prepare(
-    `UPDATE compromissos SET titulo = ?, descricao = ?, data = ?, concluido = ? WHERE id = ?`,
-  )
-
-  stmt.run(titulo, decricao, data, concluido, id)
+async function editarCompromisso(id, titulo, descricao, data, concluido) {
+  await sql`
+    UPDATE compromissos
+    SET titulo = ${titulo}, descricao = ${descricao}, data = ${data}, concluido = ${concluido}
+    WHERE id = ${id}
+  `
 }
 
 const compromisso = {

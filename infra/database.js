@@ -1,8 +1,7 @@
-import Database from 'better-sqlite3'
-import path from 'path'
+import postgres from 'postgres'
 
-const dbPath = path.resolve(process.cwd(), 'agenda.db')
+const sql = postgres(process.env.DATABASE_URL, {
+  ssl: 'require',
+})
 
-const db = new Database(dbPath)
-
-export default db
+export default sql

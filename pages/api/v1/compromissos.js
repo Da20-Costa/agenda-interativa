@@ -1,9 +1,9 @@
 import compromisso from 'src/models/compromisso.js'
 import { diasSemana } from 'src/utils/constants.js'
 
-export default function handler(request, response) {
+export default async function handler(request, response) {
   if (request.method === 'GET') {
-    const compromissos = compromisso.listarTodosCompromissos()
+    const compromissos = await compromisso.listarTodosCompromissos()
 
     return response.status(200).json(compromissos)
   }
@@ -24,7 +24,7 @@ export default function handler(request, response) {
       })
     }
 
-    compromisso.criarCompromisso({ titulo, data, descricao })
+    await compromisso.criarCompromisso({ titulo, data, descricao })
 
     return response.status(201).json({
       mensagem: 'Compromisso salvo com sucesso! ',
@@ -34,7 +34,7 @@ export default function handler(request, response) {
   if (request.method === 'DELETE') {
     const { id } = request.query
 
-    compromisso.removerCompromisso(id)
+    await compromisso.removerCompromisso(id)
 
     return response.status(204).end()
   }
@@ -49,7 +49,13 @@ export default function handler(request, response) {
     }
 
     try {
-      compromisso.editarCompromisso(id, titulo, descricao, data, concluido)
+      await compromisso.editarCompromisso(
+        id,
+        titulo,
+        descricao,
+        data,
+        concluido,
+      )
 
       return response
         .status(200)
