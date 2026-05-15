@@ -13,7 +13,7 @@
 ## 📖 Sobre o Projeto
 
 * **Nome do Projeto:** Agenda Interativa
-* **Versão Atual:** v1.0.0
+* **Versão Atual:** v1.1.0
 * **Autor:** Davi de Sousa Costa
 * **Link do Repositório Público:** [https://github.com/Da20-Costa/agenda-interativa](https://github.com/Da20-Costa/agenda-interativa)
 
@@ -40,7 +40,8 @@ Estudantes universitários, profissionais em início de carreira, programadores 
 
 * **Front-end:** React.js, Next.js, CSS Modules
 * **Back-end:** Next.js API Routes (Node.js)
-* **Base de Dados:** SQLite
+* **Base de Dados:** SQLite (para uso local) e PostgreSQL (Hospedado via Neon.tech)
+* **APIs Externas:** Advice Slip API, MyMemory Translation API e Bored API
 * **Qualidade e DevOps:** Jest (Testes de Integração), ESLint (Padronização), Prettier (Formatação), EditorConfig(Formatação) e GitHub Actions (CI/CD)
 
 ---
